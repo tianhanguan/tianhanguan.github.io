@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Functional Data Analysis</title>
+    </head>
+
+    <body>
+        <h1>Analyzing Altcoin price using functional principal component analysis</h1>
+        <img src="images/FDA/Picture.JPG" width="500" height="300" alt="A beautiful picture">
+
+        <p>Functional data analysis (FDA) analyses data providing information about curves, surfaces or anything else
+            varying over a continuum. In functional data's setting, each sample is considered to be a function which
+            differentiates itself from traditional high-dimensional data anlaysis. In this example, one technique from
+            FDA - the functional principal component analysis (FPCA) is being used to analyze the closing price of
+            20 Altcoins over the past year of time. Spline models are used for the pre-smoothing stage of the functional
+            data in this example.
+        </p>
+        <hr/>
+
+        <h2>Functional Data Design</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>Dense design with noisy repeated measurements</li>
+                <li>The collection of random functions from some stochastic process have the common unknown covariance
+                    function</li>
+                <li>Pre-smoothing of individual curves are needed</li>
+                <li>Assume error due to smoothing is negligible asymptotically</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Why FPCA in functional data?</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>Dimension reduction (reducing random curves to a set of functional principal component scores)</li>
+                <li>Exploratory data analysis (characterize the dominant modes of variation of the sample around
+                    the mean trends)</li>
+                <li>Derive the posterior distribution.</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Raw Data</h2>
+        <img src="images/FDA/P1.JPG" width="600" height="400" alt="A beautiful picture">
+        <p>
+            <ul style="list-style-type: disc">
+                <li>The raw data is on a dense and equally spaced grid (each sample has 365 observations)</li>
+                <li>The raw data is very noisy (as the closing price varies on a daily basis)</li>
+                <li>The price is on a log scale so that there is not a very strong difference in amplitude
+                    (need this for the functional PCA stage)</li>
+                <li>Need pre-smoothing on the individual curves</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Pre-smoothing of the raw data</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>Penalized spline models are used for the pre-smoothing of the raw data</li>
+                <li>Bsplines are used as the data is aperiodic</li>
+                <li>The order of the splines is chosen to be 4 (i.e. cubic splines)</li>
+                <li>Both the number of knots and the smoothing parameter are chosen using the GCV approach</li>
+                <li>Chose 48 knots (i.e. 50 basis)</li>
+                <li>Smoothing parameter is set to be 8.1</li>
+            </ul>
+        </p>
+
+        <img src="images/FDA/P2.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P3.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P4.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P5.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P6.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P7.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/PP1.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/PP2.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/PP3.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/PP4.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/PP5.JPG" width="600" height="400" alt="A beautiful picture">
+        <hr/>
+
+        <h2>Interpretations on the FPCA</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>The first FPC explains 91.6% of the variation. It contrasts early stage (slightly higher variation)
+                    with later stage (slightly lower variation) (i.e. slightly more weights are placed on the early
+                    prices which lead to higher variability).</li>
+                <li>The second FPC explains 4.8% of the variation. It contrasts the early stage and later stage of
+                    the price (which is quite typical for the second FPC).</li>
+            </ul>
+        </p>
+
+        <img src="images/FDA/P8.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P9.JPG" width="600" height="400" alt="A beautiful picture">
+        <img src="images/FDA/P10.JPG" width="600" height="400" alt="A beautiful picture">
+
+        <h2>In plain language</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>Results from FPC1 tell us that Altcoins with high positive FPC scores tend to do better in both
+                    the early and later stage (while Altcoins with high negative FPC scores tend to do poorly in both
+                    stages)</li>
+                <li>Results from FPC2 tell us that Altcoins with high positive FPC scores tend to do poorly in early
+                    stage but will do better in later stage (while Altcoins with high negative FPC scores tend to do
+                    better in early stage but poorly in later stage)</li>
+                <li>Results actually make sense as nowadays there are over 1600 Altcoins in the cryptocurrency market,
+                    and many of the Altcoins have big fluctuation in their prices (often after they get stabilized)</li>
+            </ul>
+        </p>
+        <hr/>
+
+
+        <h2><b>Closing Thoughts</b></h2>
+
+        <img src="images/FDA/Picture2.JPG" width="500" height="300" alt="A beautiful picture">
+
+        <p>Functional data analysis is a relatively new field in statistics which borrows many of the functional
+            analysis theories in the statistical analysis. It can be very mathematically involved on the theory side and
+            its set-up is abstract for beginners (like myself). However, I did find it to be very interesting and
+            it can be very useful in analyzing many data that cannot be analyzed easily using traditional statistical
+            methods.
+        </p>
+
+        <p>Two concepts that differentiate functional data from high-dimensional data. First is that functional data
+            assumes infinite dimensionality while high-dimensional data assumes finite dimensionality. Second functional
+            data assumes data is smooth while in high-dimensional data data can be discrete.
+        </p>
+
+        <hr/>
+        <p>Last updated on Jan 1, 2019</p>
+
+    </body>
+</html>
+

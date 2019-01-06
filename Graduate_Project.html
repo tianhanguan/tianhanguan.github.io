@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Graduate Project</title>
+    </head>
+
+    <body>
+        <h1>Copula-free model for risk capital modelling</h1>
+        <img src="images/Master/Picture.JPG" width="500" height="300" alt="A beautiful picture">
+
+        <p>This project focuses on how to use various modeling techniques to calculate risk capitals, and in particular,
+            how to improve the goodness-of-fit of the models and capture the dependence structure in high-dimensional
+            settings. Applications include severity-frequency models.
+        </p>
+        <hr/>
+
+        <h2>Introduction</h2>
+        <p>Historically, many risk models have been developed to deal with complicated high-dimensional data, one
+            example is the the Advanced Measurement Approach (AMA) model under Basel II for operational risk capital
+            calculations. However, there are two major concerns about the these risk models:
+            <ol type="1">
+                <li>Different risk models could have very different goodness-of-fit results especially for heavy-tailed
+                    data, and their predictive powers cannot be standardized.</li>
+                <li>Capturing the dependence structure in high-dimensional problems is very challenging. One common
+                    approach is to use some type of copula model. However, the pre-determined nature of a copula
+                    model can limit its ability to capture extremely complicated dependence structure of very
+                    high-dimensional data.</li>
+            </ol>
+        </p>
+
+        <p>The purpose of this project is to deal with the above two questions by investigating two types of multivariate
+            models.
+        </p>
+        <hr/>
+
+
+        <h2>Model 1 Multivariate Pascal Mixture and Mixture of Erlangs</h2>
+        <p>The first model assumes that dependency can be captured at the frequency level of the data, and attempts to
+            capture the dependence structure using a multivariate mixed frequency model - the Multivariate Pascal Mixture
+            model. The severity in each marginal is fitted using an univariate Mixture of Erlangs model.
+        </p>
+
+        <p><b>Desirable distributional properties of the Mixture of Erlangs model</b>
+            <ul style="list-style-type: disc">
+                <li>It is dense in the space of positive distributions, i.e. any continuous distribution can be
+                    approximated by a mixture of Erlangs to any accuracy. This will make the capital numbers to be much
+                    more stable from period to period.</li>
+                <li>It is closed under mixture, convolution, and compounding, and this will make the estimation of
+                    certain statistical quantities much easier.</li>
+                <li>Multimodal heavy-tailed data can be fitted easily .</li>
+                <li>Censored/truncated data can also be handled.</li>
+            </ul>
+        </p>
+
+        <p><b>Desirable distributional properties of the Multivariate Pascal Mixture model</b>
+            <ul style="list-style-type: disc">
+                <li>Any p-variate marginal is also a p-variate Pascal Mixture. </li>
+                <li>Multimodal count data can be fitted easily .</li>
+                <li>Censored/truncated data can also be handled.</li>
+            </ul>
+        </p>
+
+        <p><b>Model Fitting</b><br/>
+            As both models are mixture-type latent variable models, the Expectation-Maximization (EM) Algorithm can be
+            used to fit the model parameters.
+            <br/><a href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">
+                Wikipedia's Page on EM Algorithm</a> <br/>
+        </p>
+        <hr/>
+
+
+        <h2>Model 2 Multivariate Mixture of Erlangs</h2>
+        <p>The second model assumes that dependency can be captured at the aggregate level of the data, and attempts to
+            capture the dependence structure using a Multivariate Mixture of Erlangs. This is more challenging as
+            it avoids fitting the frequency and severity data separately.
+        </p>
+        <hr/>
+
+        <h2><b>Closing Thoughts</b></h2>
+
+        <img src="images/Master/Picture2.JPG" width="500" height="300" alt="A beautiful picture">
+
+        <p>In general, modelling high-dimensional heavy-tailed data can be very challenging, including both fitting
+            the marginals and modelling the dependence structure across different marginals, and the problem can get
+            even worse when there is not sufficient amount of data available. The AMA model which I have much
+            experience working with is one example that can model such data, even though I personally believe it is too
+            complex sometimes but not "reasonable" enough to model the data accurately and efficiently. The models in
+            this project can be a good alternative, with the following advantages and disadvantages:
+        </p>
+
+        <p><h3><b>Advantages</b></h3>
+            <ul style="list-style-type: disc">
+                <li>Computationally efficient. No need for Monte Carlo simulations and saves tones of time.</li>
+                <li>Stable. The Mixture Erlangs model is much more stable and avoids many
+                    model selection procedures.</li>
+                <li>Copula-free. This avoids the problem of copula selection and can potentially capture a
+                    much broader range of dependence structures.</li>
+                <li>Overall, the models here are much more FLEXIBLE in nature using mixtures, which I really think
+                    is the major advantage compared to traditional insurance models.</li>
+            </ul>
+         </p>
+
+          <p><h3><b>Disadvantages</b></h3>
+            <ul style="list-style-type: disc">
+                <li>Sometimes too good too be true. I have tried the models on various simulated datasets, one
+                    perception is that the MULTIVARIATE part of the models can make it very challenging to model
+                    the high-dimensional data when different marginals have very different TAIL BEHAVIOURS and
+                    when there is very limited data to train the model. I think in such case, using a COPULA model
+                    with EXTREME VALUE THEORY can be much more useful, and I have done this exercise in another project
+                    which can be found in another page of the website.</li>
+            </ul>
+         </p>
+
+        <hr/>
+        <p>Last updated on Jan 1, 2019</p>
+
+    </body>
+</html>
+
