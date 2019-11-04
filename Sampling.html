@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sampling theory</title>
+    </head>
+
+    <body>
+        <h1>Association between screen time and depression: a population-based study using the 2011-2012
+            national health and nutrition examination sample</h1>
+        <img src="images/Sampling/Picture.PNG" width="500" height="300" alt="A beautiful picture">
+
+        <p>The goal is to replicate (and extend) some of the analysis results in the research question
+            that has been studied
+            by K.C. Madhava et al. (2017) in their paper Association between screen time and depression among US adults
+            which used the 2011-2012 National Health and Nutrition Examination survey (NHANES) sample data where it
+            concluded that there was an association between people who spent more than 4 hours per day on TV/computer
+            with experiencing moderate or severe depression. Various survey sampling techniques are implemented throughout
+            the analysis.
+
+            <br/><br/>The most important (and difficult) part is to obtain the variance estimates for the interested
+            quantities (population proportions).
+        </p>
+        <hr/>
+
+        <h2>Four-Stage Sampling Design</h2>
+        <p>The study of this report is conducted using the sample from the 2011-2012 National Health and Nutrition
+            Examination survey (NHANES), a large cross-sectional U.S. survey conducted by the Centers for Disease
+            Control (CDC) and National Center for Health Statistics (NCHS). The sampling design consists of
+                four stages which is quite complex and is summarized as follows:
+            <ul style="list-style-type: disc">
+                <li>Stage 1: Selecting PSUs from a frame of all U.S. counties</li>
+                <li>Stage 2: Selecting area segments from each PSU</li>
+                <li>Stage 3: Selecting households from each area segment</li>
+                <li>Stage 4: Selecting persons within each household</li>
+            </ul>
+
+            In addition, the following two points are also important:
+              <ul style="list-style-type: disc">
+                <li>Each individual has a sample weight assigned which represents the number of people in the
+                    study population in NHANES. The design uses unequal probability of selection
+                    (which means the sample weights are different for each sampled individual)
+                    in order to produce an unbiased estimate for the nation</li>
+                <li>Oversampling is a common approach in large survey sampling designs which is used to adjust the
+                    distribution of subsamples of a sample dataset, so that the bias in estimations can be corrected.
+                    Here, NHANES uses oversampling to sample more individuals from certain subgroups for
+                    particular health interest so that the precision of estimates about the health information for
+                    these subgroups can be improved</li>
+                 <li>Finally, because the survey only covers a short period of time, longitudinal techniques
+                 are not involved</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Estimation of population proportions using the sample data</h2>
+            <ul style="list-style-type: disc">
+                <li>Analysis 1: Weighted analysis</li>
+                <li>Analysis 2. Unweighted analysis</li>
+                <li>For each analysis, descriptive statistics of the study population are computed include
+                estimated population proportions, their standard errors, and Rao-Scott chi-square test with
+                    second order corrections (which corrects both mean and variance) to test the association
+                    between depression and the study variables.</li>
+            </ul>
+        <p>
+        It is noted that the estimates and their standard errors are significantly different between the weighted
+            and unweighted analyses. This makes sense as the NHANES sampling design uses unequal probability selection
+            where the sample weights are different to reflect the number of people in the population that they represent.
+            In this case, using an unweighted analysis will be inappropriate as equal sample probability increases
+            the bias of the estimates as well as decreases the precision of the estimates. This is particularly true
+            for categories that involves a lot of oversampling.
+        <hr/>
+
+         <h2>Statistical analysis</h2>
+            <ul style="list-style-type: disc">
+                <li>Univariate logistic regression - Unadjusted odds ratios and confidence intervals</li>
+                <li>Multivariate logistic regression - Adjusted odds ratios and confidence intervals</li>
+            </ul>
+        <p>
+        <hr/>
+
+        <p>Last updated on Nov 1, 2019</p>
+
+    </body>
+</html>
+

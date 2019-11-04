@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bayesian Inference</title>
+    </head>
+
+    <body>
+        <h1>Bayesian inference for exponential distribution model using relative belief</h1>
+        <img src="images/MeasureEvidence/Picture.JPEG" width="500" height="300" alt="A beautiful picture">
+
+        <p>In general, how to measure statistical evidence precisely in Bayesian analysis is a challenging
+            problem. This project discusses how to make inference for the exponential distribution model in the context
+            of Bayesian analysis, using a particular measure of evidence – the relative belief ratio, to illustrate how
+            it can be used to make statistical reasoning precisely. <br/><br/>
+
+            Throughout the project, the evidential approach to the proposed statistical problem is emphasized,
+            and analyses include the following sections
+
+            <ul style="list-style-type: disc">
+                <li>prior elicitation</li>
+                <li>control of biases of model and prior</li>
+                <li>model checking</li>
+                <li>prior-data conflict</li>
+            </ul>
+
+            to make sure the final inferences (estimation and hypothesis
+            assessments) made are accurate and meaningful.
+        </p>
+        <hr/>
+
+        <h2>Bayes factor vs Relative belief ratio</h2>
+        <h3>Bayes factor</h3>
+        <p>Within the Bayesian inference context, one popular method to measure statistical evidence is to use the
+            Bayes factors, where large values of Bayes factors correspond to strong evidence for hypothesis assessments.
+            However, it has been shown that in some examples such as the Jeffreys-Lindley’s paradox, the Bayes factors
+            can be problematic and cannot fit into the general theory of statistical reasoning (strictly speaking).
+
+            <br/>
+            <h4>Jeffreys-Lindley’s paradox: </h4>
+            If one makes the prior more diffuse then there will be more supports for the hypothesis based on
+            measures such as Bayes factors. In this case, although making prior more diffuse seems to make the prior
+            more uninformative, it is actually creating more bias in favor of the hypothesis and therefore
+            making the inference unreliable.
+            <a href="https://en.wikipedia.org/wiki/Lindley%27s_paradox">Wiki's page on the
+                Jeffreys-Lindley’s paradox</a> <br/>
+        </p>
+
+        <h3>Relative belief ratio</h3>
+        <p>
+        As opposed to measures such as Bayes factors, for the relative belief principle, measure of evidence is
+            separated from the measure of its strength, and therefore can solve many of the paradoxes.
+            In other words, the relative belief ratio seeks to measure evidence by the amount of belief change from
+            priori to posteriori, and uses probability to only measure the strength of
+            evidence but not the evidence itself.
+        </p>
+        <hr/>
+
+        <h2>Elicitation procedure for the prior</h2>
+        <p>
+            The first step is to select a prior for the rate parameter (lambda) of the exponential distribution model.
+            For this problem, the prior distribution π(.) is selected to be the gamma distribution for the following reasons:
+            <ul style="list-style-type: disc">
+                <li>Gamma distribution has support over (0,∞) as the rate parameter 𝜆 needs to be strictly positive</li>
+                <li>Gamma distribution can take very flexible shapes (therefore we can make the prior
+                    less informative if needed)</li>
+                <li>The conjugate prior for the exponential distribution is the gamma distribution
+                    (unless there is a strong reason to reject the gamma family, using a conjugate
+                    prior is convenient)</li>
+            </ul>
+            The prior is then estimated numerically using the data.
+
+        </p>
+        <hr/>
+
+        <h2>Control of bias due to model and prior choices</h2>
+        <p>
+            The second step involves how to quantify both the bias against and bias in favor for hypothesis assessments
+            in this problem. This gives a way to see if the selected prior is inducing significant bias into the
+            inference, and therefore to decide whether another prior should be used.
+
+            <ol type="1">
+                <li>Derive the prior predictive distribution. Here,
+                instead of deriving the prior predictive distribution in terms of the original random variable,
+                the minimal sufficient statistic T(X) is being used as we want the analysis only depends on the
+                data through the minimal sufficient statistic.</li>
+
+                <li>Bias against the hypothesis assessment. Using the principle of evidence, the bias against of
+                    H0: λ= λ0 is is the prior probability measure of the data given the null hypothesis is true.
+
+                <li>Bias in favor of the hypothesis assessment. Bias in favor occurs when evidence against is not
+                    obtained when the null hypothesis is false with high prior probability.</li>
+            </ol>
+        </p>
+        <hr/>
+
+        <h2>Model checking based on the observed data</h2>
+        <p>
+            The third step is to estimate the model based on the data. The following procedures are involved in this
+            step:
+
+            <ul style="list-style-type: disc">
+                <li>Numerical assessment (one-sample Kolmogorov-Smirnov test)</li>
+                <li>Graphical assessment (kernel density plot)</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Checking for prior-data conflict based on the observed data</h2>
+        <p>
+            After making sure the sampling model is a reasonable choice for the observed data, now it is important to
+            make sure the selected prior does not have significant conflict against the observed data.
+            Prior-data conflict essentially means that the selected prior is placing most of its mass on parameter values
+            which is surprising given the observed data.
+
+            <ul style="list-style-type: disc">
+                <li>Diagnostics - Where the prior and posterior distributions have very different high density regions,
+                    we can conclude that there is significant prior-data conflict. </li>
+                <li>Using the prior predictive distribution - Formal measure which involves the prior predictive
+                    distribution with the minimal sufficient statistic (tail probability is computed).</li>
+            </ul>
+        </p>
+
+        <img src="images/MeasureEvidence/Plot1.JPG" width="600" height="600" alt="A beautiful picture">
+        <img src="images/MeasureEvidence/Plot2.JPG" width="600" height="600" alt="A beautiful picture">
+        <hr/>
+
+        <h2>Inferences based on relative belief</h2>
+        <p>
+            <ul style="list-style-type: disc">
+                <li>Estimation</li>
+                <li>Hypothesis Testing</li>
+            </ul>
+        </p>
+
+        <img src="images/MeasureEvidence/Plot3.JPG" width="600" height="600" alt="A beautiful picture">
+        <hr/>
+
+        <p>Last updated on Nov 1, 2019</p>
+
+    </body>
+</html>
+

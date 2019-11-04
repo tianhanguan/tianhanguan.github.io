@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Statistical Learning Theory</title>
+    </head>
+
+    <body>
+        <h1>Kernel selection in SVM for high-dimensional & sparse binary data</h1>
+        <img src="images/LearningTheory/Picture.PNG" width="500" height="300" alt="A beautiful picture">
+
+        <p>One of the biggest challenges of using support vector machine (SVM) for non-linear classification problems is
+            how to select an appropriate kernel class. The goal of the project is to compare the generalization bound
+            for the SVM classifier using different kernel class in case where all features are binary. A generalization
+            bound measures a hypothesis class's predictive performance in PAC learning - that is, with high probability,
+            we select function that will have low generalization error.
+        </p>
+        <hr/>
+
+        <h2>Experiment</h2>
+        <p>Mushroom data: response variable is binary (edible or poisonous), features
+            are all categorical and are encoded to binary variables using one-hot encoding (in total 112 features)
+            using a train-test split of 70%/30%.
+            <ul style="list-style-type: disc">
+                <li>Optimal hypothesis is obtained using the Empirical Risk Minimization (ERM) principle with the
+                    hinge loss function
+                </li>
+                <li>Hyper-parameters (which measures the spread of the kernel) is tuned using
+                    grid search</li>
+                <li>Polynomial > Sigmoid > Gaussian (based on generalization error
+                    which represents the estimated population risk of the classifier).</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Theoretical analysis</h2>
+        <p>Use statistical learning theory tools to get some insights.
+            <ul style="list-style-type: disc">
+                <li>Surrogate loss and consistency - if we can minimize the hinge loss (surrogate for the 0-1 loss),
+                    then we can also
+                    minimize the 0-1 loss </li>
+                <li>Rademacher complexity - derive an upper bound of Rademacher complexity for each kernel class</li>
+                <li>Generalization bound based on the Rademacher complexity</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <h2>Summary of analysis results</h2>
+        <p>In practice it is very difficult to test performance of many kernel classes in fine grid search when data size
+            is large. Using the results above, one can first identify a very rough hyper-parameter space, then choose an
+            appropriate kernel class. This will save much time compared to first obtain the optimal hypothesis from
+            each kernel class and then select the best kernel.
+            <ul style="list-style-type: disc">
+                <li>Gaussian kernels tend to give higher generalization errors than the polynomial and sigmoid kernels
+                    when optimal is chosen.</li>
+                <li>When the feature dimension is small relative to the hyper-parameter value (d*gamma is small (<< 1)),
+                    using a polynomial kernel will tend to give lower generalization errors.</li>
+                <li>When the feature dimension is large relative to the hyper-parameter value (d*gamma is large (> 1)), using
+                    a sigmoid kernel will tend to give lower generalization errors.</li>
+            </ul>
+        </p>
+        <hr/>
+
+        <p>Last updated on Nov 1, 2019</p>
+
+    </body>
+</html>
+
