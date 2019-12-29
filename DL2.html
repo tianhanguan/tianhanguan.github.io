@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RNN</title>
+    </head>
+
+    <body>
+        <h1>Sentiment analysis for text data using RNN with LSTM</h1>
+        <img src="images/DL2/Picture.PNG" width="500" height="300" alt="A beautiful picture">
+
+        <p>Compared to densely connected (feed forward) neural networks, recurrent neural networks (RNN) have better
+            capability to model sequence data (such as text and time series data) by maintaining an internal
+            loop over sequence elements. This project explores how to use RNN with Long Short Term Memory (LSTM)
+            layers to perform a sentiment analysis task on the Roman Urdu text data.
+            The goal is to develop some guidelines and insights
+            as how to apply deep learning methods to process text data.
+            Models are built using Keras.<br/><br/>
+        </p>
+        <hr/>
+
+        <h2>Sentiment Analysis</h2>
+        <p>Sentiment analysis is a popular field of natural language processing which involves identify and
+            extract opinions/emotions from text data. It has important applications in areas such as customer
+            reviews and survey responses, from customer marketing to health care.
+
+            In machine learning, sentiment analysis can be handled by any type of classifiers (e.g.
+            SVM, logistic regression, tree models, neural networks, etc). However, as text data is usually big and
+            complex, deep learning has been very popular for sentiment analysis. This project focuses on the
+            deep learning approach and uses a few other types of models as baseline benchmarks.
+        </p>
+        <hr/>
+
+        <h2>Process Text Data</h2>
+        <p>Compared to structured data, the first step to work with text data is to tokenize/vectorize them so that
+            they can be used as input for the machine learning algorithms. Traditionally, feature engineering tools
+            such as N-grams are powerful for many of the "shallow" learning methods but is not appropriate for
+            deep learning models, mainly because the bag-of-words method doesn't preserve the global ordering pattern
+            (tokens generated form a set but not sequence). For this project, the word embedding method is used to
+            tokenize the texts. Note that compared to the one-hot-encoding method (which is popular for encode
+            categorical data), word embeddings are learning from the actual data - they create vectors that are
+            dense, low-dimensional, and tend to reflect the semantic relationship between words. </p>
+
+        <p>The text data in this project is the Roman Urdu text dataset, which contains more than 20,000 comments
+            (in Roman scripts) with labels (negative, neutral, or positive). Note that some of the comments have
+            special characters (for example, happy faces, empty squares, etc.), these characters are included in the
+            comments (therefore maybe included in the vocabulary list).</p>
+
+            <img src="images/DL2/Data.JPG" width="600" height="400" alt="A beautiful picture"><br/>
+
+        <p>It should be noted that the class labels are not evenly distributed (most of the comments are neutral),
+            however, because the imbalance is not very significant, no oversampling/undersampling is done. Also note
+            that the comments have various length, some are very short and some are very long. In this task,
+            only the first 100 words are considered for each comment.</p>
+
+            <img src="images/DL2/EDA1.JPG" width="600" height="400" alt="A beautiful picture">
+            <img src="images/DL2/EDA2.JPG" width="600" height="400" alt="A beautiful picture">
+
+        <p>The vocabulary list only considers the top 10,000 words. Note that in total there are more than 30,000
+            unique tokens in the dataset. Using only the frequent words avoid the word embeddings to be too noisy.</p>
+
+            <img src="images/DL2/EDA3.JPG" width="600" height="400" alt="A beautiful picture">
+
+        <hr/>
+
+        <h2>Baseline Models</h2>
+        <p>Before building RNN models, three baseline or alternative models are built. This step
+        is important as the final RNN model can only be accepted if it can beat the performance of the cheaper and
+        simpler alternative models. For this problem, the following three types of models are used as baselines:
+
+                <ol>*. Random Guess (naive baseline)- accuracy of 36%</ol>
+                <ol>1. Multinomial Logistic Regression - accuracy of 44% <br/></ol>
+                <ol>2. SVM (One vs All) - accuracy of 44%</ol>
+                <ol>3. Gradient Boosting - accuracy of 54%</ol>
+        </p>
+        <hr/>
+
+
+       <h2>Densely Connected Networks </h2>
+        <p>Before  building a RNN, a simple DNN model (with a single layer) is built to see the performance
+            of ignoring the sequence pattern of the data. </p>
+
+        <img src="images/DL2/DNN1.JPG" width="600" height="400" alt="A beautiful picture">
+
+        <p>The model starts to overfit after 2 epochs. A regularized version using dropout is then built. </p>
+
+        <img src="images/DL2/DNN2.JPG" width="600" height="400" alt="A beautiful picture">
+
+        <p>With the regularization added, less overfitting is seen. It is noticed that the validation accuracy stops
+            improving after 10 epochs (stays flat around 65%).</p>
+
+        <p>The regularized model is fit again and used on the test data. An accuracy of 61% is seen on the test data.
+            The soft probability distribution for each class is plotted as below. </p>
+
+        <img src="images/DL2/DNN3.JPG" width="600" height="400" alt="A beautiful picture">
+        <hr/>
+
+
+
+        <h2>Recurrent Neural Networks</h2>
+        <p>Three RNN models have been built for this case. The first model contains a single small LSTM layer. The
+        second model contains a single bigger LSTM layer. The third model contains two LSTM layers. Regularization
+        using dropout is applied to all three models. From the plots below, it can be seen that the performance is
+        very similar on the validation set - increasing the complexity does not improve the predictive power.</p>
+
+        <img src="images/DL2/RNN1.JPG" width="600" height="400" alt="A beautiful picture"> </br>
+        <img src="images/DL2/RNN2.JPG" width="600" height="400" alt="A beautiful picture"> </br>
+        <img src="images/DL2/RNN4.JPG" width="600" height="400" alt="A beautiful picture"> </br>
+
+        <p>Overfitting is seen in all three models.  An accuracy of 63% is seen on the test data for all three models,
+            which has a small improvement compared to the feed-forward network (with 61% accuracy).
+            The soft probability distribution for each class is plotted as below.</p>
+
+        <img src="images/DL2/RNN3.JPG" width="600" height="400" alt="A beautiful picture">
+        <hr>
+
+
+
+        <h2>Bidirectional Recurrent Neural Networks</h2>
+        <p>A bidirectional RNN is a popular tool in many NLP tasks, it consists of two regular (one directional)
+        RNNs which process the data in opposite directions, and then combing their representations together.</p>
+
+        <img src="images/DL2/BRNN1.JPG" width="600" height="400" alt="A beautiful picture"> </br>
+
+        <p>In this case, the bidirectional RNN show similar performance as the regular RNNs. However, it takes
+        much longer time to train the model (as its complexity is much higher). In this case, it possibly means
+        that reading the comments backward does not show any significant new pattern.
+        </p>
+
+        <p>Here are some general remarks on bidirectional RNNs.</p>
+            <ul style="list-style-type: disc">
+                <li>In some cases, a bidirectional RNN can capture more complex patterns than a regular RNN
+                    (as it looks at the data from another angle and exploits the data more -
+                    similar to ensemble learning).
+                </li><br/>
+
+                <li>Although bidirectional RNNs are useful on many NLP problems, they are less useful for time series
+                    data predictions (where the recent past is more important than ancient past - which is very common
+                    for many time series data).
+                </li><br/>
+            </ul>
+
+
+        <hr>
+
+        <h2>Summary</h2>
+        <p>Two important points can be concluded from the analysis. First, deep learning models are performing much
+            better on this text data - compared other "shallow learning" methods. Second, various types of RNN models
+            do not significantly outperform the densely connected networks (only small improvement). Here are some
+            possible explanations on why LSTM is not performing much better.
+        </p>
+
+
+            <ul style="list-style-type: disc">
+                <li>LSTM is designed to capture global (long-term) ordering patterns in the data (for example, a long
+                    paragraph of a book or a long documentation). However, in this case, we know the comments are
+                    relatively short sequences (on average only 68 words long and half of the comments are less
+                    than 38 words
+                    long). As a result, LSTM will not be particularly useful for this sentiment analysis problem
+                    although it still performs slightly better than the fully connected network.
+                </li><br/>
+
+                <li>For this particular sentiment analysis task, probably the most efficient way to classify a comment
+                    is to look at what words occur in a comment and how frequent it occurs (for example, good,
+                    happy face, etc.). This job can also be done efficiently by the densely connected network. This is
+                    probably why the densely connected network is also performing well on this problem.
+                </li><br/>
+            </ul>
+        <hr/>
+
+        <p>Last updated on Dec 1, 2019</p>
+    </body>
+</html>
+
